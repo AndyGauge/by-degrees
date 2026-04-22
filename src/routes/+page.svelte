@@ -11,6 +11,16 @@
   const stops = [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5];
   const gradient = `linear-gradient(to right, ${stops.map((s) => paletteFor(s).bg).join(', ')})`;
 
+  // Force a neutral white palette on the cover so returning from a deep-red or
+  // deep-blue page doesn't leave the reader "painted into" one side.
+  $effect(() => {
+    if (typeof document === 'undefined') return;
+    document.documentElement.setAttribute(
+      'style',
+      '--bg:#ffffff;--ink:#14110d;--muted:rgba(20,17,13,0.56);--rule:rgba(20,17,13,0.16);--accent:#6a6a6a;'
+    );
+  });
+
   function start() {
     goto(base + '/' + flat[0].num);
   }
@@ -51,7 +61,8 @@
       <span>By</span>
       <span class="italic">Degrees</span>
     </h1>
-    <div class="sub">Thirty-eight laws signed between 1976 and 2026,<br />arranged from the bluest blue to the reddest red.</div>
+    <div class="sub">Forty laws signed between 1989 and 2023,<br />arranged from the bluest blue to the reddest red.</div>
+    <div class="prompt">To find your position, see which of these you agree with.</div>
 
     <div class="gradient" style:background={gradient}>
       <span class="tick-left">Left</span>
@@ -133,6 +144,16 @@
     margin-top: 2.5rem;
     max-width: 40ch;
     line-height: 1.35;
+  }
+
+  .prompt {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(1rem, 1.25vw, 1.2rem);
+    color: var(--ink);
+    margin-top: 1.4rem;
+    max-width: 42ch;
+    line-height: 1.4;
   }
 
   .gradient {
