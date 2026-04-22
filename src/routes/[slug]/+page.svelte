@@ -497,9 +497,16 @@
   }
 
   @media (max-width: 720px) {
+    .page {
+      padding: 4vw 7vw;           /* wider side margins on phone */
+    }
+
     .body {
       grid-template-columns: 1fr;
+      gap: 2.5vw;
+      padding: 1.5vw 0;
     }
+
     .number,
     .title,
     .gesture,
@@ -507,10 +514,30 @@
     .source,
     .eli5 {
       grid-column: 1;
+      max-width: none;
     }
-    .gesture { padding-left: 1rem; }
-    .body-text { padding-left: 1rem; }
-    .source { padding-left: 1rem; }
-    .eli5 { max-width: none; }
+
+    /* Prevent long words/citations/URLs from forcing horizontal overflow. */
+    .title,
+    .gesture,
+    .body-text,
+    .cite,
+    .eli5-body {
+      overflow-wrap: break-word;
+      word-break: break-word;
+      hyphens: auto;
+    }
+
+    .number  { font-size: clamp(3rem, 12vw, 5rem); margin-top: 0.2rem; }
+    .title   { font-size: clamp(1.9rem, 7vw, 3rem); }
+    .gesture { font-size: clamp(1rem, 3.8vw, 1.2rem); padding-left: 0.9rem; margin-top: 1rem; }
+    .body-text { padding-left: 0.9rem; margin-top: 0.9rem; }
+    .source  { padding-left: 0.9rem; gap: 0.8rem; }
+    .eli5    { padding: 1rem; margin-top: 1.4rem; }
+
+    .top { letter-spacing: 0.16em; font-size: 0.64rem; }
+    .nav { gap: 0.8rem; }
+    .nav-num   { font-size: 0.6rem; letter-spacing: 0.16em; }
+    .nav-title { font-size: 0.82rem; }
   }
 </style>
