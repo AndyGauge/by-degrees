@@ -5,6 +5,7 @@
   import { createPager } from '$lib/gestures.js';
   import { md } from '$lib/md.js';
   import { styleFor, modeFor, SPECTRUM_LABELS } from '$lib/palette.js';
+  import { flagFor } from '$lib/flags.js';
   import Spectrum from '$lib/Spectrum.svelte';
 
   let { data } = $props();
@@ -97,6 +98,7 @@
 
   <div class="body" bind:this={bodyEl}>
     <div class="meta vt-partlabel">
+      <span class="flag" aria-hidden="true">{@html flagFor(section.jurisdiction)}</span>
       <span class="theme">{spectrumLabel}</span>
       <span class="jurisdiction">{section.jurisdiction}</span>
       <span class="year">{section.year}</span>
@@ -185,7 +187,8 @@
 
 <style>
   .page {
-    height: 100vh;
+    height: 100vh;              /* fallback */
+    height: 100dvh;             /* mobile: shrinks with URL bar so footer stays on screen */
     padding: 3vw 5vw;
     display: grid;
     grid-template-rows: auto minmax(0, 1fr) auto;
@@ -193,6 +196,7 @@
     transition: transform 320ms cubic-bezier(0.2, 0.9, 0.3, 1);
     touch-action: pan-y;
     will-change: transform;
+    overflow: hidden;
   }
 
   .page.dragging { transition: none; }
@@ -246,6 +250,22 @@
     display: flex;
     flex-direction: column;
     gap: 0.6rem;
+  }
+
+  .flag {
+    display: block;
+    width: clamp(40px, 4vw, 56px);
+    aspect-ratio: 3 / 2;
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px var(--rule), 0 1px 2px rgba(0, 0, 0, 0.12);
+    margin-bottom: 0.2rem;
+  }
+
+  .flag :global(svg) {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 
   .theme {

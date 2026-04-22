@@ -79,6 +79,7 @@
 <style>
   .cover {
     height: 100vh;
+    height: 100dvh;
     padding: 5vw 7vw;
     display: grid;
     grid-template-rows: auto 1fr auto;
